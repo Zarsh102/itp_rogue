@@ -4,6 +4,7 @@
 
 void Grid::print_dungeon()
 {
+	// loop the grid and print each row of characters
 	for (int i = 0; i < _rowSize; ++i)
 	{
 		for (int j = 0; j < _colSize; ++j)
