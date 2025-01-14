@@ -22,7 +22,7 @@ void Grid::initialize_cells()
 	
 	for (int i = 0; i < _rowSize; ++i)
 	{
-		grid[i].resize(_colSize, '#');
+		grid[i].resize(_colSize, '&');
 	}
 
 	generate_dungeon();
