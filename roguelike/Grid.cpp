@@ -28,7 +28,7 @@ void Grid::initialize_cells()
 	
 	for (int i = 0; i < _rowSize; ++i)
 	{
-		grid[i].resize(_colSize, '&');
+		grid[i].resize(_colSize, wallSymbol);
 	}
 
 	generate_dungeon();
@@ -53,9 +53,9 @@ void Grid::generate_dungeon()
 	while (stepsTaken < MaxNumberSteps
 		&& cellsConverted < MaxWalkableCells)
 	{
-		if (grid[x][y] == '#')
+		if (grid[x][y] == wallSymbol)
 		{
-			grid[x][y] = ' ';
+			grid[x][y] = emptySymbol;
 			cellsConverted++;
 		}
 
