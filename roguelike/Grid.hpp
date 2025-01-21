@@ -7,7 +7,8 @@ class Grid {
 public:
 	Grid(int rowSize, int columnSize) 
 		: _rowSize{rowSize},
-		  _colSize{columnSize}
+		  _colSize{columnSize},
+			mt{rd()}
 	{
 		initialize_cells();
 	};
