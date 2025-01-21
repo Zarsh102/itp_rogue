@@ -3,6 +3,8 @@
 
 #include <random>
 
+#include <Windows.h>
+
 #include "Grid.hpp"
 
 int main()
@@ -12,9 +14,23 @@ int main()
 
 	Grid grid(RowSize, ColumnSize);
 
-	grid.resize_grid(10, 10);
+	bool isRunning{ true };
 
+	while (isRunning)
+	{
+		system("cls");
 	grid.print_dungeon();
+
+		char ch;
+		std::cin >> ch;
+
+		switch (ch)
+		{
+		case 'q':
+			isRunning = false;
+			break;
+		}
+	}
 
 	return 0;
 }
