@@ -34,7 +34,14 @@ public:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
+
+	bool checkForTreasure();
+
+	int getRemainingTreasureCount() { return treasureRemaining; }
 private:
+	int treasureRemaining{ 0 };
+	void collectTreasure();
+
 	void initialize_cells();
 	void generate_dungeon();
 
@@ -47,6 +54,7 @@ private:
 	int _colSize;
 
 	const char playerSymbol = '@';
+	const char treasureSymbol = '*';
 	const char wallSymbol = '#';
 	const char emptySymbol = ' ';
 	int playerX{ 0 };

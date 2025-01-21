@@ -16,10 +16,14 @@ int main()
 
 	bool isRunning{ true };
 
+	int treasureCount{ 0 };
+
 	while (isRunning)
 	{
 		system("cls");
 	grid.print_dungeon();
+
+		std::cout << "Collected " << treasureCount << '\n';
 
 		char ch;
 		std::cin >> ch;
@@ -41,6 +45,11 @@ int main()
 		case 'q':
 			isRunning = false;
 			break;
+		}
+
+		if (grid.checkForTreasure())
+		{
+			treasureCount++;
 		}
 		}
 	}

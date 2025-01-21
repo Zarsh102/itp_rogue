@@ -51,6 +51,24 @@ void Grid::moveRight()
 		(grid[playerX][playerY + 1] != wallSymbol))
 		playerY++;
 }
+
+bool Grid::checkForTreasure()
+{
+	if (grid[playerX][playerY] == treasureSymbol)
+	{
+		collectTreasure();
+		return true;
+	}
+
+	return false;
+}
+
+void Grid::collectTreasure()
+{
+	grid[playerX][playerY] = emptySymbol;
+	treasureRemaining--;
+}
+
 void Grid::initialize_cells()
 {
 	grid.clear();
@@ -72,14 +90,17 @@ void Grid::generate_dungeon()
 	int stepsTaken{ 0 };
 	int cellsConverted{ 0 };
 
-	std::uniform_int_distribution<> column_dist(0, _colSize);
-	std::uniform_int_distribution<> row_dist(0, _rowSize);
+	treasureRemaining = 0;
+
+	std::uniform_int_distribution<> column_dist(1, _colSize-1);
+	std::uniform_int_distribution<> row_dist(1, _rowSize-1);
 
 	int x = row_dist(mt);
 	int y = column_dist(mt);
 
 	playerX = x;
 	playerY = y;
+
 	while (stepsTaken < MaxNumberSteps
 		&& cellsConverted < MaxWalkableCells)
 	{
@@ -87,6 +108,12 @@ void Grid::generate_dungeon()
 		{
 			grid[x][y] = emptySymbol;
 			cellsConverted++;
+		}
+
+		if (stepsTaken > 0 && stepsTaken % 250 == 0)
+		{
+			grid[x][y] = treasureSymbol;
+			treasureRemaining++;
 		}
 
 		std::uniform_int_distribution<> direction_dist(0, 3);
