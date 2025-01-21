@@ -2,6 +2,12 @@
 
 #include <iostream>
 
+const char Grid::playerSymbol = '@';
+const char Grid::treasureSymbol = '*';
+const char Grid::wallSymbol = '#';
+const char Grid::emptySymbol = ' ';
+const char Grid::exitSymbol = '^';
+
 void Grid::print_dungeon()
 {
 	// loop the grid and print each row of characters
