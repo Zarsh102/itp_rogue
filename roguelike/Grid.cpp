@@ -48,6 +48,8 @@ void Grid::generate_dungeon()
 	int x = row_dist(mt);
 	int y = column_dist(mt);
 
+	playerX = x;
+	playerY = y;
 	while (stepsTaken < MaxNumberSteps
 		&& cellsConverted < MaxWalkableCells)
 	{
