@@ -9,7 +9,13 @@ void Grid::print_dungeon()
 	{
 		for (int j = 0; j < _colSize; ++j)
 		{
+			if (i == playerX && j == playerY)
+			{
+				std::cout << playerSymbol;
+			}
+			else {
 			std::cout << grid[i][j];
+		}
 		}
 		std::cout << '\n';
 	}

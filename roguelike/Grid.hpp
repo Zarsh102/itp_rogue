@@ -41,4 +41,7 @@ private:
 
 	int _rowSize;
 	int _colSize;
+	const char playerSymbol = '@';
+	int playerX{ 0 };
+	int playerY{ 0 };
 };
