@@ -13,6 +13,14 @@ public:
 		initialize_cells();
 	};
 
+	void clearTreasure() {
+		treasureRemaining = 0;
+	}
+
+	void create_new_dungeon() {
+		initialize_cells();
+	}
+
 	void print_dungeon();
 
 	void set_row_size(int newRowSize) {
@@ -36,8 +44,10 @@ public:
 	void moveRight();
 
 	bool checkForTreasure();
+	bool checkForExit();
 
 	int getRemainingTreasureCount() { return treasureRemaining; }
+
 private:
 	int treasureRemaining{ 0 };
 	void collectTreasure();
@@ -57,6 +67,8 @@ private:
 	const char treasureSymbol = '*';
 	const char wallSymbol = '#';
 	const char emptySymbol = ' ';
+	const char exitSymbol = '^';
+
 	int playerX{ 0 };
 	int playerY{ 0 };
 };

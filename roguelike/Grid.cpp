@@ -14,8 +14,8 @@ void Grid::print_dungeon()
 				std::cout << playerSymbol;
 			}
 			else {
-			std::cout << grid[i][j];
-		}
+				std::cout << grid[i][j];
+			}
 		}
 		std::cout << '\n';
 	}
@@ -57,6 +57,16 @@ bool Grid::checkForTreasure()
 	if (grid[playerX][playerY] == treasureSymbol)
 	{
 		collectTreasure();
+		return true;
+	}
+
+	return false;
+}
+
+bool Grid::checkForExit()
+{
+	if (grid[playerX][playerY] == exitSymbol)
+	{
 		return true;
 	}
 
@@ -143,4 +153,6 @@ void Grid::generate_dungeon()
 
 		stepsTaken++;
 	}
+
+	grid[x][y] = exitSymbol;
 }
