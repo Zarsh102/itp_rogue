@@ -19,6 +19,9 @@ void Grid::print_dungeon()
 			{
 				std::cout << playerSymbol;
 			}
+			else if (enemy.getX() == i && enemy.getY() == j) {
+				std::cout << Enemy::enemySymbol;
+			}
 			else {
 				std::cout << grid[i][j];
 			}
@@ -33,29 +36,38 @@ void Grid::moveUp()
 		(grid[playerX - 1][playerY] != wallSymbol))
 	{
 		playerX--;
+		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
-
 }
 
 void Grid::moveDown()
 {
 	if ((playerX < _rowSize - 1) &&
 		(grid[playerX + 1][playerY] != wallSymbol))
+	{
 		playerX++;
+		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	}
 }
 
 void Grid::moveLeft()
 {
 	if ((playerY > 1) &&
 		(grid[playerX][playerY - 1] != wallSymbol))
+	{
 		playerY--;
+		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	}
 }
 
 void Grid::moveRight()
 {
 	if ((playerY < _colSize - 1) &&
 		(grid[playerX][playerY + 1] != wallSymbol))
+	{
 		playerY++;
+		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	}
 }
 
 bool Grid::checkForTreasure()
@@ -160,5 +172,6 @@ void Grid::generate_dungeon()
 		stepsTaken++;
 	}
 
+	enemy.setPosition(x, y);
 	grid[x][y] = exitSymbol;
 }
