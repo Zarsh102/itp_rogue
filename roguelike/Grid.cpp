@@ -21,6 +21,36 @@ void Grid::print_dungeon()
 	}
 }
 
+void Grid::moveUp()
+{
+	if ((playerX > 1) && 
+		(grid[playerX - 1][playerY] != wallSymbol))
+	{
+		playerX--;
+	}
+
+}
+
+void Grid::moveDown()
+{
+	if ((playerX < _rowSize - 1) &&
+		(grid[playerX + 1][playerY] != wallSymbol))
+		playerX++;
+}
+
+void Grid::moveLeft()
+{
+	if ((playerY > 1) &&
+		(grid[playerX][playerY - 1] != wallSymbol))
+		playerY--;
+}
+
+void Grid::moveRight()
+{
+	if ((playerY < _colSize - 1) &&
+		(grid[playerX][playerY + 1] != wallSymbol))
+		playerY++;
+}
 void Grid::initialize_cells()
 {
 	grid.clear();

@@ -26,9 +26,22 @@ int main()
 
 		switch (ch)
 		{
+		case 'w':
+			grid.moveUp();
+			break;
+		case 'a':
+			grid.moveLeft();
+			break;
+		case 's':
+			grid.moveDown();
+			break;
+		case 'd':
+			grid.moveRight();
+			break;
 		case 'q':
 			isRunning = false;
 			break;
+		}
 		}
 	}
 

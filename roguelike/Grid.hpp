@@ -30,6 +30,10 @@ public:
 		initialize_cells();
 	}
 
+	void moveUp();
+	void moveDown();
+	void moveLeft();
+	void moveRight();
 private:
 	void initialize_cells();
 	void generate_dungeon();
