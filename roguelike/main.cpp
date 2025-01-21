@@ -5,7 +5,7 @@
 
 #include <Windows.h>
 
-#include "Grid.hpp"
+#include "Grid.h"
 
 int main()
 {

@@ -3,12 +3,15 @@
 #include <vector>
 #include <random>
 
+#include "Enemy.h"
+
 class Grid {
 public:
 	Grid(int rowSize, int columnSize) 
 		: _rowSize{rowSize},
 		  _colSize{columnSize},
-			mt{rd()}
+			mt{rd()},
+		enemy{3, 4}
 	{
 		initialize_cells();
 	};
@@ -48,6 +51,12 @@ public:
 
 	int getRemainingTreasureCount() { return treasureRemaining; }
 
+	static const char playerSymbol;
+	static const char treasureSymbol;
+	static const char wallSymbol;
+	static const char emptySymbol;
+	static const char exitSymbol;
+
 private:
 	int treasureRemaining{ 0 };
 	void collectTreasure();
@@ -63,12 +72,8 @@ private:
 	int _rowSize;
 	int _colSize;
 
-	const char playerSymbol = '@';
-	const char treasureSymbol = '*';
-	const char wallSymbol = '#';
-	const char emptySymbol = ' ';
-	const char exitSymbol = '^';
-
 	int playerX{ 0 };
 	int playerY{ 0 };
+
+	Enemy enemy;
 };
