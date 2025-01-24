@@ -31,16 +31,16 @@ int main()
 		switch (ch)
 		{
 		case 'w':
-			grid.moveUp();
+			grid.move(Direction::Up);
 			break;
 		case 'a':
-			grid.moveLeft();
+			grid.move(Direction::Left);
 			break;
 		case 's':
-			grid.moveDown();
+			grid.move(Direction::Down);
 			break;
 		case 'd':
-			grid.moveRight();
+			grid.move(Direction::Right);
 			break;
 		case 'q':
 			isRunning = false;

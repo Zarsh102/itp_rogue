@@ -1,8 +1,8 @@
 #include "Grid.h"
+#include "Player.h"
 
 #include <iostream>
 
-const char Grid::playerSymbol = '@';
 const char Grid::treasureSymbol = '*';
 const char Grid::wallSymbol = '#';
 const char Grid::emptySymbol = ' ';
@@ -15,9 +15,9 @@ void Grid::print_dungeon()
 	{
 		for (int j = 0; j < _colSize; ++j)
 		{
-			if (i == playerX && j == playerY)
+			if (i == player.getX() && j == player.getY())
 			{
-				std::cout << playerSymbol;
+				std::cout << Player::playerSymbol;
 			}
 			else if (enemy.getX() == i && enemy.getY() == j) {
 				std::cout << Enemy::enemySymbol;
@@ -30,49 +30,32 @@ void Grid::print_dungeon()
 	}
 }
 
-void Grid::moveUp()
-{
-	if ((playerX > 1) && 
-		(grid[playerX - 1][playerY] != wallSymbol))
-	{
-		playerX--;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
-	}
-}
+void Grid::move(Direction direction) {
+	bool playerMoved = false;
+	
+	switch(direction) {
+		case Direction::Up:
+			playerMoved = player.moveUp(grid);
+			break;	
+		case Direction::Down:
+			playerMoved = player.moveDown(grid);
+			break;
+		case Direction::Left:
+			playerMoved = player.moveLeft(grid);
+			break;
+		case Direction::Right:
+			playerMoved = player.moveRight(grid);
+			break;
+		}
 
-void Grid::moveDown()
-{
-	if ((playerX < _rowSize - 1) &&
-		(grid[playerX + 1][playerY] != wallSymbol))
-	{
-		playerX++;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
-	}
-}
-
-void Grid::moveLeft()
-{
-	if ((playerY > 1) &&
-		(grid[playerX][playerY - 1] != wallSymbol))
-	{
-		playerY--;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
-	}
-}
-
-void Grid::moveRight()
-{
-	if ((playerY < _colSize - 1) &&
-		(grid[playerX][playerY + 1] != wallSymbol))
-	{
-		playerY++;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	if(playerMoved) {
+		enemy.MoveTowardsPlayer(player.getX(), player.getY(), grid, _colSize, _rowSize);
 	}
 }
 
 bool Grid::checkForTreasure()
 {
-	if (grid[playerX][playerY] == treasureSymbol)
+	if (grid[player.getX()][player.getY()] == treasureSymbol)
 	{
 		collectTreasure();
 		return true;
@@ -83,7 +66,7 @@ bool Grid::checkForTreasure()
 
 bool Grid::checkForExit()
 {
-	if (grid[playerX][playerY] == exitSymbol)
+	if (grid[player.getX()][player.getY()] == exitSymbol)
 	{
 		return true;
 	}
@@ -93,7 +76,7 @@ bool Grid::checkForExit()
 
 void Grid::collectTreasure()
 {
-	grid[playerX][playerY] = emptySymbol;
+	grid[player.getX()][player.getY()] = emptySymbol;
 	treasureRemaining--;
 }
 
@@ -126,8 +109,7 @@ void Grid::generate_dungeon()
 	int x = row_dist(mt);
 	int y = column_dist(mt);
 
-	playerX = x;
-	playerY = y;
+	player.setPosition(x, y);
 
 	while (stepsTaken < MaxNumberSteps
 		&& cellsConverted < MaxWalkableCells)

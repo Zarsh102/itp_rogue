@@ -4,13 +4,23 @@
 #include <random>
 
 #include "Enemy.h"
+#include "Player.h"
+
+enum class Direction {
+	Up,
+	Down,
+	Left,
+	Right
+};
+
+using GridArray = std::vector<std::vector<char>>;
 
 class Grid {
 public:
 	Grid(int rowSize, int columnSize) 
-		: _rowSize{rowSize},
-		  _colSize{columnSize},
-			mt{rd()},
+		: mt{rd()},
+		  _rowSize{rowSize},
+			_colSize{columnSize},
 		enemy{3, 4}
 	{
 		initialize_cells();
@@ -41,17 +51,13 @@ public:
 		initialize_cells();
 	}
 
-	void moveUp();
-	void moveDown();
-	void moveLeft();
-	void moveRight();
+	void move(Direction direction);
 
 	bool checkForTreasure();
 	bool checkForExit();
 
 	int getRemainingTreasureCount() { return treasureRemaining; }
 
-	static const char playerSymbol;
 	static const char treasureSymbol;
 	static const char wallSymbol;
 	static const char emptySymbol;
@@ -64,7 +70,7 @@ private:
 	void initialize_cells();
 	void generate_dungeon();
 
-	std::vector< std::vector<char>> grid;
+	GridArray grid;
 
 	std::random_device rd;
 	std::mt19937 mt;
@@ -72,8 +78,6 @@ private:
 	int _rowSize;
 	int _colSize;
 
-	int playerX{ 0 };
-	int playerY{ 0 };
-
 	Enemy enemy;
+	Player player;
 };
