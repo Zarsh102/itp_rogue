@@ -26,4 +26,5 @@ private:
 	int x{ 0 }, y{ 0 };
 	int health{ 10 };
 	
+	bool CheckForPlayer(int &playerX, int &playerY);
 };
