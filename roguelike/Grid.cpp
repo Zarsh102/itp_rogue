@@ -30,6 +30,16 @@ void Grid::print_dungeon()
 	}
 }
 
+int Grid::GetPlayerX() 
+{
+	return this->playerX;
+}
+
+int Grid::GetPlayerY() 
+{
+	return this->playerY;
+}
+
 void Grid::moveUp()
 {
 	if ((playerX > 1) && 

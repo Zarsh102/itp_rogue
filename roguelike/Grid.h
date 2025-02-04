@@ -49,6 +49,9 @@ public:
 	bool checkForTreasure();
 	bool checkForExit();
 
+	int GetPlayerX();
+	int GetPlayerY();
+
 	int getRemainingTreasureCount() { return treasureRemaining; }
 
 	static const char playerSymbol;
