@@ -12,9 +12,12 @@ public:
 	void MoveTowardsPlayer(int playerX, int playerY, 
 		const std::vector< std::vector<char>>& grid, 
 		int colSize, int rowSize);
+
 	
 	int getX() { return x; }
 	int getY() { return y; }
+
+	bool CheckForPlayer(int& playerX, int& playerY);
 
 	int GetAttackDamage();
 
@@ -33,5 +36,5 @@ private:
 	std::random_device rd;
 	std::mt19937 mt;
 	
-	bool CheckForPlayer(int &playerX, int &playerY);
+	// bool CheckForPlayer(int &playerX, int &playerY);
 };

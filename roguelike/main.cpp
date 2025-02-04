@@ -42,6 +42,10 @@ int main()
 
 		std::cout << "Collected " << treasureCount << '\n';
 
+		if (grid.isDamaged) {
+			std::cout << "You were hit for " << grid.GetDamage() << std::endl; 
+		}
+
 		char ch;
 		std::cin >> ch;
 

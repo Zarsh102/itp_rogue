@@ -10,8 +10,6 @@ void Enemy::MoveTowardsPlayer(int playerX, int playerY,
 	// move right towards player
 	if (x < playerX)
 	{
-		this->CheckForPlayer(playerX, playerY);
-
 		if ((x < rowSize - 1) &&
 			(grid[x + 1][y] != Grid::wallSymbol))
 		{
@@ -22,8 +20,6 @@ void Enemy::MoveTowardsPlayer(int playerX, int playerY,
 
 	if (x > playerX) 
 	{	
-		this->CheckForPlayer(playerX, playerY);
-
 		if ((x > 1) &&
 			(grid[x - 1][y] != Grid::wallSymbol))
 		{
@@ -34,8 +30,6 @@ void Enemy::MoveTowardsPlayer(int playerX, int playerY,
 
 	if (y < playerY)
 	{
-		this->CheckForPlayer(playerX, playerY);
-
 		if ((y < colSize - 1) &&
 			(grid[x][y + 1] != Grid::wallSymbol))
 		{
@@ -46,8 +40,6 @@ void Enemy::MoveTowardsPlayer(int playerX, int playerY,
 
 	if (y > playerY)
 	{
-		this->CheckForPlayer(playerX, playerY);
-
 		if ((y > 1) &&
 			(grid[x][y - 1] != Grid::wallSymbol))
 		{

@@ -48,6 +48,13 @@ void Grid::moveUp()
 		playerX--;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
+
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged) 
+	{
+		ReceiveAttack();
+	}
 }
 
 void Grid::moveDown()
@@ -57,6 +64,13 @@ void Grid::moveDown()
 	{
 		playerX++;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	}
+	
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged)
+	{
+		ReceiveAttack();
 	}
 }
 
@@ -68,6 +82,13 @@ void Grid::moveLeft()
 		playerY--;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
+
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged)
+	{
+		ReceiveAttack();
+	}
 }
 
 void Grid::moveRight()
@@ -77,6 +98,13 @@ void Grid::moveRight()
 	{
 		playerY++;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	}
+
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged)
+	{
+		ReceiveAttack();
 	}
 }
 
@@ -184,4 +212,20 @@ void Grid::generate_dungeon()
 
 	enemy.setPosition(x, y);
 	grid[x][y] = exitSymbol;
+}
+
+// This needs to be moved into a player class.
+void Grid::ReceiveAttack()
+{
+	// We've just taken damage from an enemy.
+	isDamaged = true; 
+
+	lastDamage = enemy.GetAttackDamage();
+	health -= lastDamage;
+}
+
+void Grid::ResetDamageState() 
+{
+	isDamaged = false;
+	lastDamage = 0;
 }
