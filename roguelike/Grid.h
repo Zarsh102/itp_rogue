@@ -63,6 +63,7 @@ public:
 	bool isDamaged{ false };
 	int GetDamage() { return lastDamage; }
 	void ResetDamageState();
+	int GetHealth() { return health; }
 
 private:
 	int treasureRemaining{ 0 };

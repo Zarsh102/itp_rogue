@@ -46,6 +46,13 @@ int main()
 			std::cout << "You were hit for " << grid.GetDamage() << std::endl; 
 		}
 
+		if (grid.GetHealth() <= 0)
+		{ 
+			std::cout << "You are dead!";
+			isRunning = false;
+			break;
+		}
+
 		char ch;
 		std::cin >> ch;
 
