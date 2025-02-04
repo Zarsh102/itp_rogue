@@ -1,0 +1,1 @@
+Weapon damage: 6 range: 0

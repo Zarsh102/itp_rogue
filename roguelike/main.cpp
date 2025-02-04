@@ -20,7 +20,7 @@ int main()
 
 	while (isRunning)
 	{
-		system("cls");
+		//system("cls");
 		grid.print_dungeon();
 
 		std::cout << "Collected " << treasureCount << '\n';

@@ -1,6 +1,9 @@
 #include "Grid.h"
+#include "Item.h"
 
 #include <iostream>
+
+#include <fstream>
 
 const char Grid::playerSymbol = '@';
 const char Grid::treasureSymbol = '*';
@@ -72,6 +75,8 @@ void Grid::moveRight()
 
 bool Grid::checkForTreasure()
 {
+	ItemCollected(0, 0, 0);
+
 	if (grid[playerX][playerY] == treasureSymbol)
 	{
 		collectTreasure();
@@ -89,6 +94,40 @@ bool Grid::checkForExit()
 	}
 
 	return false;
+}
+
+void Grid::ItemCollected(int defense, int damage, int healthHealed)
+{
+	std::uniform_int_distribution<> item_dist(0, ItemType::potion);
+
+	std::uniform_int_distribution<> defense_dist(Item::minDefense, Item::maxDefense);
+	std::uniform_int_distribution<> damage_dist(Item::minDamage, Item::maxDamage);
+	std::uniform_int_distribution<> range_dist(0, Item::maxRange);
+	std::uniform_int_distribution<> heal_dist(1, Item::maxHeal);
+
+	ItemType itemType = (ItemType)item_dist(mt);
+
+	Item* newItem;
+
+	switch (itemType) {
+	case ItemType::armour:
+		newItem = new ArmourItem(defense_dist(mt));
+		std::cout << *(ArmourItem*)newItem << '\n';
+		break;
+
+	case ItemType::potion:
+		newItem = new PotionItem(heal_dist(mt));
+		std::cout << *(PotionItem*)newItem << '\n';
+		break;
+
+	default:
+	case ItemType::weapon:
+		newItem = new WeaponItem(damage_dist(mt), range_dist(mt));
+		std::cout << *(WeaponItem*)newItem << '\n';
+		break;
+	}
+
+	inventory.push_back(newItem);
 }
 
 void Grid::collectTreasure()
