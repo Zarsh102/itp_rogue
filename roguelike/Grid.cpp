@@ -2,11 +2,14 @@
 
 #include <iostream>
 
+
 const char Grid::playerSymbol = '@';
 const char Grid::treasureSymbol = '*';
 const char Grid::wallSymbol = '#';
 const char Grid::emptySymbol = ' ';
 const char Grid::exitSymbol = '^';
+
+
 
 void Grid::print_dungeon()
 {
@@ -28,6 +31,17 @@ void Grid::print_dungeon()
 		}
 		std::cout << '\n';
 	}
+	if (shouldPrintInv)
+	{
+		printInventory();
+		shouldPrintInv = false;
+	}
+	else if (shouldPrintFullMessage)
+	{
+		std::cout << "Can't hold more of item!";
+		shouldPrintFullMessage = false;
+	}
+
 }
 
 void Grid::moveUp()
@@ -74,7 +88,7 @@ bool Grid::checkForTreasure()
 {
 	if (grid[playerX][playerY] == treasureSymbol)
 	{
-		collectTreasure();
+		collectItem(invEnum::treasure);
 		return true;
 	}
 
@@ -91,10 +105,36 @@ bool Grid::checkForExit()
 	return false;
 }
 
-void Grid::collectTreasure()
+
+void Grid::collectItem(int item)
 {
-	grid[playerX][playerY] = emptySymbol;
-	treasureRemaining--;
+	if (inventory[item] < itemLimit[item])
+	{
+		grid[playerX][playerY] = emptySymbol;
+		if (item == invEnum::treasure)
+			treasureRemaining--;
+		updateInventory(item, 1);
+	}
+	else
+		shouldPrintFullMessage = true;
+}
+
+void Grid::printInventory()
+{
+	std::cout << "Treasure = " << inventory[invEnum::treasure] << 
+		" Potions = " << inventory[invEnum::potion] <<
+		" Weapons = " << inventory[invEnum::weapon] <<
+		" Armour = " << inventory[invEnum::armour] << '\n';
+}
+
+void Grid::checkInventory()
+{
+	shouldPrintInv = true;
+}
+
+void Grid::updateInventory(int itemNumber, int amount)
+{
+	inventory[itemNumber] += amount;
 }
 
 void Grid::initialize_cells()

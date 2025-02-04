@@ -49,6 +49,10 @@ public:
 	bool checkForTreasure();
 	bool checkForExit();
 
+	void printInventory();
+	void checkInventory();
+	void updateInventory(int itemNumber, int amount);
+
 	int getRemainingTreasureCount() { return treasureRemaining; }
 
 	static const char playerSymbol;
@@ -58,8 +62,16 @@ public:
 	static const char exitSymbol;
 
 private:
+	//Inventory variables
+	std::vector<int> inventory = { 0, 0, 0, 0 };
+	std::vector<int> itemLimit = { 100, 100, 100, 100 };
+	enum invEnum { treasure, potion, weapon, armour };
+
+	bool shouldPrintInv{ false };
+	bool shouldPrintFullMessage{ false };
+
 	int treasureRemaining{ 0 };
-	void collectTreasure();
+	void collectItem(int item);
 
 	void initialize_cells();
 	void generate_dungeon();

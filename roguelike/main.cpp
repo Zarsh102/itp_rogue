@@ -16,14 +16,10 @@ int main()
 
 	bool isRunning{ true };
 
-	int treasureCount{ 0 };
-
 	while (isRunning)
 	{
 		system("cls");
 		grid.print_dungeon();
-
-		std::cout << "Collected " << treasureCount << '\n';
 
 		char ch;
 		std::cin >> ch;
@@ -48,14 +44,14 @@ int main()
 		case 'c':
 			grid.clearTreasure();
 			break;
+		case 'i':
+			grid.checkInventory();
+			break;
 		default:
 			std::cout << ch << " is not a valid command\n";
 		}
 
-		if (grid.checkForTreasure())
-		{
-			treasureCount++;
-		}
+		grid.checkForTreasure();
 		
 		if (grid.checkForExit() && grid.getRemainingTreasureCount() == 0)
 		{
