@@ -1,12 +1,14 @@
 #include "Grid.h"
-
+#include "Player.h"
 #include <iostream>
+#include <random>
 
 const char Grid::playerSymbol = '@';
 const char Grid::treasureSymbol = '*';
 const char Grid::wallSymbol = '#';
 const char Grid::emptySymbol = ' ';
 const char Grid::exitSymbol = '^';
+
 
 void Grid::print_dungeon()
 {
@@ -35,6 +37,13 @@ void Grid::moveUp()
 	if ((playerX > 1) && 
 		(grid[playerX - 1][playerY] != wallSymbol))
 	{
+		int enemyX = enemy.getX();
+		int enemyY = enemy.getY();
+
+		if (playerX - 1 == enemyX && playerY == enemyY)
+		{
+			player.DoAttack();
+		}
 		playerX--;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
@@ -45,6 +54,14 @@ void Grid::moveDown()
 	if ((playerX < _rowSize - 1) &&
 		(grid[playerX + 1][playerY] != wallSymbol))
 	{
+
+		int enemyX = enemy.getX();
+		int enemyY = enemy.getY();
+
+		if (playerX + 1 == enemyX && playerY == enemyY)
+		{
+			player.DoAttack();
+		}
 		playerX++;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
@@ -55,6 +72,13 @@ void Grid::moveLeft()
 	if ((playerY > 1) &&
 		(grid[playerX][playerY - 1] != wallSymbol))
 	{
+		int enemyX = enemy.getX();
+		int enemyY = enemy.getY();
+
+		if (playerX == enemyX && playerY - 1 == enemyY)
+		{
+			player.DoAttack();
+		}
 		playerY--;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
@@ -65,6 +89,13 @@ void Grid::moveRight()
 	if ((playerY < _colSize - 1) &&
 		(grid[playerX][playerY + 1] != wallSymbol))
 	{
+		int enemyX = enemy.getX();
+		int enemyY = enemy.getY();
+
+		if (playerX == enemyX && playerY + 1 == enemyY)
+		{
+			player.DoAttack();
+		}
 		playerY++;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}

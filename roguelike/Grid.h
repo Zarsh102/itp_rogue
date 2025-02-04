@@ -76,4 +76,5 @@ private:
 	int playerY{ 0 };
 
 	Enemy enemy;
+	Player player;
 };

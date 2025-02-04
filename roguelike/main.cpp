@@ -7,12 +7,15 @@
 
 #include "Grid.h"
 
+#include "Player.h"
+
 int main()
 {
 	const int ColumnSize = 100;
 	const int RowSize = 20;
 
 	Grid grid(RowSize, ColumnSize);
+	Player player;
 
 	bool isRunning{ true };
 
