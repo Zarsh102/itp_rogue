@@ -64,3 +64,11 @@ bool Enemy::CheckForPlayer(int &playerX, int &playerY)
 
 	return (xDifference == 1 && yDifference == 0) || (xDifference == 0 && yDifference == 1);
 }
+
+int Enemy::GetAttackDamage() 
+{
+	// Return random value between 1 and this->maxDamage.
+	std::uniform_int_distribution<> attackRange(1, this->maxDamage);
+
+	return attackRange(this->mt);
+}

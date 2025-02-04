@@ -7,6 +7,23 @@
 
 #include "Grid.h"
 
+/*int main() {
+	Enemy enemy;
+
+	bool testing{ true };
+	int counter{ 0 };
+
+	while (testing) {
+		std::cout << enemy.GetAttackDamage() << " ";
+
+		counter++;
+
+		testing = counter < 2500;
+	}
+
+	return 0;
+}*/
+
 int main()
 {
 	const int ColumnSize = 100;
