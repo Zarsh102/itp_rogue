@@ -5,6 +5,8 @@
 
 #include "Enemy.h"
 
+#include "Item.h"
+
 class Grid {
 public:
 	Grid(int rowSize, int columnSize) 
@@ -57,6 +59,8 @@ public:
 	static const char emptySymbol;
 	static const char exitSymbol;
 
+	void ItemCollected(int defense, int damage, int healthHealed);
+
 private:
 	int treasureRemaining{ 0 };
 	void collectTreasure();
@@ -76,4 +80,6 @@ private:
 	int playerY{ 0 };
 
 	Enemy enemy;
+
+	std::vector<Item*> inventory;
 };

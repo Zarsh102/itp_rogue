@@ -2,6 +2,7 @@
 
 #include "Grid.h"
 
+
 const char Enemy::enemySymbol = '!';
 
 void Enemy::MoveTowardsPlayer(int playerX, int playerY, 
