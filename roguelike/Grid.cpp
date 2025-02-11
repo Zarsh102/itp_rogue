@@ -20,7 +20,7 @@ void Grid::print_dungeon()
 	{
 		for (int j = 0; j < _colSize; ++j)
 		{
-			if (i == playerX && j == playerY)
+			if (i == player.X && j == player.Y)
 			{
 				std::cout << playerSymbol;
 			}
@@ -48,31 +48,31 @@ void Grid::print_dungeon()
 
 int Grid::GetPlayerX() 
 {
-	return this->playerX;
+	return this->player.X;
 }
 
 int Grid::GetPlayerY() 
 {
-	return this->playerY;
+	return this->player.Y;
 }
 
 void Grid::moveUp()
 {
-	if ((playerX > 1) && 
-		(grid[playerX - 1][playerY] != wallSymbol))
+	if ((player.X > 1) && 
+		(grid[player.X - 1][player.Y] != wallSymbol))
 	{
 		int enemyX = enemy.getX();
 		int enemyY = enemy.getY();
 
-		if (playerX - 1 == enemyX && playerY == enemyY)
+		if (player.X - 1 == enemyX && player.Y == enemyY)
 		{
 			player.DoAttack();
 		}
-		playerX--;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+		player.X--;
+		enemy.MoveTowardsPlayer(player.X, player.Y, grid, _colSize, _rowSize);
 	}
 
-	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+	this->isDamaged = enemy.CheckForPlayer(player.X, player.Y);
 
 	if (isDamaged) 
 	{
@@ -83,21 +83,21 @@ void Grid::moveUp()
 void Grid::moveDown()
 {
 	if ((playerX < _rowSize - 1) &&
-		(grid[playerX + 1][playerY] != wallSymbol))
+		(grid[player.X + 1][player.Y] != wallSymbol))
 	{
 
 		int enemyX = enemy.getX();
 		int enemyY = enemy.getY();
 
-		if (playerX + 1 == enemyX && playerY == enemyY)
+		if (player.X + 1 == enemyX && player.Y == enemyY)
 		{
 			player.DoAttack();
 		}
-		playerX++;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+		player.X++;
+		enemy.MoveTowardsPlayer(player.X, player.Y, grid, _colSize, _rowSize);
 	}
 	
-	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+	this->isDamaged = enemy.CheckForPlayer(player.X, player.Y);
 
 	if (isDamaged)
 	{
@@ -107,21 +107,21 @@ void Grid::moveDown()
 
 void Grid::moveLeft()
 {
-	if ((playerY > 1) &&
-		(grid[playerX][playerY - 1] != wallSymbol))
+	if ((player.Y > 1) &&
+		(grid[player.X][player.Y - 1] != wallSymbol))
 	{
 		int enemyX = enemy.getX();
 		int enemyY = enemy.getY();
 
-		if (playerX == enemyX && playerY - 1 == enemyY)
+		if (player.X == enemyX && player.Y - 1 == enemyY)
 		{
 			player.DoAttack();
 		}
-		playerY--;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+		player.Y--;
+		enemy.MoveTowardsPlayer(player.X, player.Y, grid, _colSize, _rowSize);
 	}
 
-	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+	this->isDamaged = enemy.CheckForPlayer(player.X, player.Y);
 
 	if (isDamaged)
 	{
@@ -132,20 +132,20 @@ void Grid::moveLeft()
 void Grid::moveRight()
 {
 	if ((playerY < _colSize - 1) &&
-		(grid[playerX][playerY + 1] != wallSymbol))
+		(grid[player.X][player.Y + 1] != wallSymbol))
 	{
 		int enemyX = enemy.getX();
 		int enemyY = enemy.getY();
 
-		if (playerX == enemyX && playerY + 1 == enemyY)
+		if (player.X == enemyX && player.Y + 1 == enemyY)
 		{
 			player.DoAttack();
 		}
-		playerY++;
-		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+		player.Y++;
+		enemy.MoveTowardsPlayer(player.X, player.Y, grid, _colSize, _rowSize);
 	}
 
-	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+	this->isDamaged = enemy.CheckForPlayer(player.X, player.Y);
 
 	if (isDamaged)
 	{
@@ -162,7 +162,7 @@ bool Grid::checkForTreasure()
 
 bool Grid::checkForExit()
 {
-	if (grid[playerX][playerY] == exitSymbol)
+	if (grid[player.X][player.Y] == exitSymbol)
 	{
 		return true;
 	}
@@ -270,8 +270,8 @@ void Grid::generate_dungeon()
 	int x = row_dist(mt);
 	int y = column_dist(mt);
 
-	playerX = x;
-	playerY = y;
+	player.X = x;
+	player.Y = y;
 
 	while (stepsTaken < MaxNumberSteps
 		&& cellsConverted < MaxWalkableCells)
