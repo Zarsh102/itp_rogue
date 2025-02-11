@@ -102,6 +102,7 @@ private:
 	int playerY{ 0 };
 
 	Enemy enemy;
+	Player player;
 
 	int health{ 20 };
 	int lastDamage{ 0 };

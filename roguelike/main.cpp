@@ -7,22 +7,7 @@
 
 #include "Grid.h"
 
-/*int main() {
-	Enemy enemy;
-
-	bool testing{ true };
-	int counter{ 0 };
-
-	while (testing) {
-		std::cout << enemy.GetAttackDamage() << " ";
-
-		counter++;
-
-		testing = counter < 2500;
-	}
-
-	return 0;
-}*/
+#include "Player.h"
 
 int main()
 {
@@ -30,6 +15,7 @@ int main()
 	const int RowSize = 20;
 
 	Grid grid(RowSize, ColumnSize);
+	Player player;
 
 	bool isRunning{ true };
 
