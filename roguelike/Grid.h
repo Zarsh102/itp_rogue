@@ -52,6 +52,8 @@ public:
 	void printInventory();
 	void checkInventory();
 	void updateInventory(int itemNumber, int amount);
+	int GetPlayerX();
+	int GetPlayerY();
 
 	int getRemainingTreasureCount() { return treasureRemaining; }
 
@@ -60,6 +62,11 @@ public:
 	static const char wallSymbol;
 	static const char emptySymbol;
 	static const char exitSymbol;
+	
+	bool isDamaged{ false };
+	int GetDamage() { return lastDamage; }
+	void ResetDamageState();
+	int GetHealth() { return health; }
 
 private:
 	//Inventory variables
@@ -76,6 +83,8 @@ private:
 	void initialize_cells();
 	void generate_dungeon();
 
+	void ReceiveAttack();
+
 	std::vector< std::vector<char>> grid;
 
 	std::random_device rd;
@@ -88,4 +97,7 @@ private:
 	int playerY{ 0 };
 
 	Enemy enemy;
+
+	int health{ 20 };
+	int lastDamage{ 0 };
 };
