@@ -7,6 +7,23 @@
 
 #include "Grid.h"
 
+/*int main() {
+	Enemy enemy;
+
+	bool testing{ true };
+	int counter{ 0 };
+
+	while (testing) {
+		std::cout << enemy.GetAttackDamage() << " ";
+
+		counter++;
+
+		testing = counter < 2500;
+	}
+
+	return 0;
+}*/
+
 int main()
 {
 	const int ColumnSize = 100;
@@ -24,6 +41,17 @@ int main()
 		grid.print_dungeon();
 
 		std::cout << "Collected " << treasureCount << '\n';
+
+		if (grid.isDamaged) {
+			std::cout << "You were hit for " << grid.GetDamage() << std::endl; 
+		}
+
+		if (grid.GetHealth() <= 0)
+		{ 
+			std::cout << "You are dead!";
+			isRunning = false;
+			break;
+		}
 
 		char ch;
 		std::cin >> ch;

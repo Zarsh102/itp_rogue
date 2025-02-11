@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <random>
 
 class Enemy {
 public:
@@ -11,9 +12,14 @@ public:
 	void MoveTowardsPlayer(int playerX, int playerY, 
 		const std::vector< std::vector<char>>& grid, 
 		int colSize, int rowSize);
+
 	
 	int getX() { return x; }
 	int getY() { return y; }
+
+	bool CheckForPlayer(int& playerX, int& playerY);
+
+	int GetAttackDamage();
 
 	void setPosition(int xPos, int yPos) {
 		x = xPos;
@@ -25,5 +31,10 @@ public:
 private:
 	int x{ 0 }, y{ 0 };
 	int health{ 10 };
+	int maxDamage{ 5 };
+
+	std::random_device rd;
+	std::mt19937 mt;
 	
+	// bool CheckForPlayer(int &playerX, int &playerY);
 };

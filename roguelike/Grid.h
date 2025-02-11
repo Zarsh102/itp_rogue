@@ -49,6 +49,9 @@ public:
 	bool checkForTreasure();
 	bool checkForExit();
 
+	int GetPlayerX();
+	int GetPlayerY();
+
 	int getRemainingTreasureCount() { return treasureRemaining; }
 
 	static const char playerSymbol;
@@ -56,6 +59,11 @@ public:
 	static const char wallSymbol;
 	static const char emptySymbol;
 	static const char exitSymbol;
+	
+	bool isDamaged{ false };
+	int GetDamage() { return lastDamage; }
+	void ResetDamageState();
+	int GetHealth() { return health; }
 
 private:
 	int treasureRemaining{ 0 };
@@ -63,6 +71,8 @@ private:
 
 	void initialize_cells();
 	void generate_dungeon();
+
+	void ReceiveAttack();
 
 	std::vector< std::vector<char>> grid;
 
@@ -76,4 +86,7 @@ private:
 	int playerY{ 0 };
 
 	Enemy enemy;
+
+	int health{ 20 };
+	int lastDamage{ 0 };
 };
