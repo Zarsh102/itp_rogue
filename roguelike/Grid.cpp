@@ -155,13 +155,7 @@ void Grid::moveRight()
 
 bool Grid::checkForTreasure()
 {
-	ItemCollected(0, 0, 0);
-
-	if (grid[playerX][playerY] == treasureSymbol)
-	{
-		collectItem(invEnum::treasure);
-		return true;
-	}
+	ItemCollected();
 
 	return false;
 }
@@ -176,7 +170,7 @@ bool Grid::checkForExit()
 	return false;
 }
 
-void Grid::ItemCollected(int defense, int damage, int healthHealed)
+void Grid::ItemCollected()
 {
 	std::uniform_int_distribution<> item_dist(0, ItemType::potion);
 
@@ -210,31 +204,31 @@ void Grid::ItemCollected(int defense, int damage, int healthHealed)
 	inventory.push_back(newItem);
 }
 
-void Grid::collectTreasure()
-{
-	grid[playerX][playerY] = emptySymbol;
-	treasureRemaining--;
-}
+//void Grid::collectTreasure()
+//{
+//	grid[playerX][playerY] = emptySymbol;
+//	treasureRemaining--;
+//}
 
-void Grid::collectItem(int item)
-{
-	if (inventory[item] < itemLimit[item])
-	{
-		grid[playerX][playerY] = emptySymbol;
-		if (item == invEnum::treasure)
-			treasureRemaining--;
-		updateInventory(item, 1);
-	}
-	else
-		shouldPrintFullMessage = true;
-}
+//void Grid::collectItem(int item)
+//{
+//	if (inventory[item] < itemLimit[item])
+//	{
+//		grid[playerX][playerY] = emptySymbol;
+//		if (item == invEnum::treasure)
+//			treasureRemaining--;
+//		updateInventory(item, 1);
+//	}
+//	else
+//		shouldPrintFullMessage = true;
+//}
 
 void Grid::printInventory()
 {
-	std::cout << "Treasure = " << inventory[invEnum::treasure] << 
-		" Potions = " << inventory[invEnum::potion] <<
-		" Weapons = " << inventory[invEnum::weapon] <<
-		" Armour = " << inventory[invEnum::armour] << '\n';
+//	std::cout << "Treasure = " << inventory[invEnum::treasure] << 
+//		" Potions = " << inventory[invEnum::potion] <<
+//		" Weapons = " << inventory[invEnum::weapon] <<
+//		" Armour = " << inventory[invEnum::armour] << '\n';
 }
 
 void Grid::checkInventory()

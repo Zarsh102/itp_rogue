@@ -1,7 +1,9 @@
 #include "Player.h"
+
 #include <stdlib.h>
 #include <iostream>
-void Player::DoAttack(int x, int y) {
+
+void Player::DoAttack() {
 
 	int damageDelt = rand() % 11;
 

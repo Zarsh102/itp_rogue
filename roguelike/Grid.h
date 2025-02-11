@@ -65,7 +65,7 @@ public:
 	static const char emptySymbol;
 	static const char exitSymbol;
 
-	void ItemCollected(int defense, int damage, int healthHealed);
+	void ItemCollected();
 
 	
 	bool isDamaged{ false };
@@ -74,11 +74,6 @@ public:
 	int GetHealth() { return health; }
 
 private:
-	//Inventory variables
-	std::vector<int> inventory = { 0, 0, 0, 0 };
-	std::vector<int> itemLimit = { 100, 100, 100, 100 };
-	enum invEnum { treasure, potion, weapon, armour };
-
 	bool shouldPrintInv{ false };
 	bool shouldPrintFullMessage{ false };
 
