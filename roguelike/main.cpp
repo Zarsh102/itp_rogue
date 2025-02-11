@@ -7,6 +7,23 @@
 
 #include "Grid.h"
 
+/*int main() {
+	Enemy enemy;
+
+	bool testing{ true };
+	int counter{ 0 };
+
+	while (testing) {
+		std::cout << enemy.GetAttackDamage() << " ";
+
+		counter++;
+
+		testing = counter < 2500;
+	}
+
+	return 0;
+}*/
+
 int main()
 {
 	const int ColumnSize = 100;
@@ -16,14 +33,21 @@ int main()
 
 	bool isRunning{ true };
 
-	int treasureCount{ 0 };
-
 	while (isRunning)
 	{
 		//system("cls");
 		grid.print_dungeon();
 
-		std::cout << "Collected " << treasureCount << '\n';
+		if (grid.isDamaged) {
+			std::cout << "You were hit for " << grid.GetDamage() << std::endl; 
+		}
+
+		if (grid.GetHealth() <= 0)
+		{ 
+			std::cout << "You are dead!";
+			isRunning = false;
+			break;
+		}
 
 		char ch;
 		std::cin >> ch;
@@ -48,14 +72,14 @@ int main()
 		case 'c':
 			grid.clearTreasure();
 			break;
+		case 'i':
+			grid.checkInventory();
+			break;
 		default:
 			std::cout << ch << " is not a valid command\n";
 		}
 
-		if (grid.checkForTreasure())
-		{
-			treasureCount++;
-		}
+		grid.checkForTreasure();
 		
 		if (grid.checkForExit() && grid.getRemainingTreasureCount() == 0)
 		{

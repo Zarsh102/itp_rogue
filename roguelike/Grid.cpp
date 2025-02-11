@@ -11,6 +11,8 @@ const char Grid::wallSymbol = '#';
 const char Grid::emptySymbol = ' ';
 const char Grid::exitSymbol = '^';
 
+
+
 void Grid::print_dungeon()
 {
 	// loop the grid and print each row of characters
@@ -31,6 +33,27 @@ void Grid::print_dungeon()
 		}
 		std::cout << '\n';
 	}
+	if (shouldPrintInv)
+	{
+		printInventory();
+		shouldPrintInv = false;
+	}
+	else if (shouldPrintFullMessage)
+	{
+		std::cout << "Can't hold more of item!";
+		shouldPrintFullMessage = false;
+	}
+
+}
+
+int Grid::GetPlayerX() 
+{
+	return this->playerX;
+}
+
+int Grid::GetPlayerY() 
+{
+	return this->playerY;
 }
 
 void Grid::moveUp()
@@ -40,6 +63,13 @@ void Grid::moveUp()
 	{
 		playerX--;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	}
+
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged) 
+	{
+		ReceiveAttack();
 	}
 }
 
@@ -51,6 +81,13 @@ void Grid::moveDown()
 		playerX++;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
+	
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged)
+	{
+		ReceiveAttack();
+	}
 }
 
 void Grid::moveLeft()
@@ -60,6 +97,13 @@ void Grid::moveLeft()
 	{
 		playerY--;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
+	}
+
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged)
+	{
+		ReceiveAttack();
 	}
 }
 
@@ -71,6 +115,13 @@ void Grid::moveRight()
 		playerY++;
 		enemy.MoveTowardsPlayer(playerX, playerY, grid, _colSize, _rowSize);
 	}
+
+	this->isDamaged = enemy.CheckForPlayer(playerX, playerY);
+
+	if (isDamaged)
+	{
+		ReceiveAttack();
+	}
 }
 
 bool Grid::checkForTreasure()
@@ -79,7 +130,7 @@ bool Grid::checkForTreasure()
 
 	if (grid[playerX][playerY] == treasureSymbol)
 	{
-		collectTreasure();
+		collectItem(invEnum::treasure);
 		return true;
 	}
 
@@ -134,6 +185,37 @@ void Grid::collectTreasure()
 {
 	grid[playerX][playerY] = emptySymbol;
 	treasureRemaining--;
+}
+
+void Grid::collectItem(int item)
+{
+	if (inventory[item] < itemLimit[item])
+	{
+		grid[playerX][playerY] = emptySymbol;
+		if (item == invEnum::treasure)
+			treasureRemaining--;
+		updateInventory(item, 1);
+	}
+	else
+		shouldPrintFullMessage = true;
+}
+
+void Grid::printInventory()
+{
+	std::cout << "Treasure = " << inventory[invEnum::treasure] << 
+		" Potions = " << inventory[invEnum::potion] <<
+		" Weapons = " << inventory[invEnum::weapon] <<
+		" Armour = " << inventory[invEnum::armour] << '\n';
+}
+
+void Grid::checkInventory()
+{
+	shouldPrintInv = true;
+}
+
+void Grid::updateInventory(int itemNumber, int amount)
+{
+	inventory[itemNumber] += amount;
 }
 
 void Grid::initialize_cells()
@@ -213,4 +295,20 @@ void Grid::generate_dungeon()
 
 	enemy.setPosition(x, y);
 	grid[x][y] = exitSymbol;
+}
+
+// This needs to be moved into a player class.
+void Grid::ReceiveAttack()
+{
+	// We've just taken damage from an enemy.
+	isDamaged = true; 
+
+	lastDamage = enemy.GetAttackDamage();
+	health -= lastDamage;
+}
+
+void Grid::ResetDamageState() 
+{
+	isDamaged = false;
+	lastDamage = 0;
 }
