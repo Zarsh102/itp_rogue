@@ -1,6 +1,6 @@
 #include <iostream>
 #include <array>
-
+#include <conio.h>
 #include <random>
 
 #include <Windows.h>
@@ -21,7 +21,7 @@ int main()
 
 	while (isRunning)
 	{
-		//system("cls");
+		system("cls");
 		grid.print_dungeon();
 
 		if (grid.isDamaged) {
@@ -35,8 +35,7 @@ int main()
 			break;
 		}
 
-		char ch;
-		std::cin >> ch;
+		char ch = _getch();
 
 		switch (ch)
 		{

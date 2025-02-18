@@ -82,21 +82,19 @@ void Grid::moveUp()
 
 void Grid::moveDown()
 {
-	if ((playerX < _rowSize - 1) &&
+	if ((player.X < _rowSize - 1) &&
 		(grid[player.X + 1][player.Y] != wallSymbol))
 	{
 
 		int enemyX = enemy.getX();
 		int enemyY = enemy.getY();
 
-		if (player.X + 1 == enemyX && player.Y == enemyY)
-		{
+		if (player.X + 1 == enemyX && player.Y == enemyY) {
 			player.DoAttack();
 		}
 		player.X++;
 		enemy.MoveTowardsPlayer(player.X, player.Y, grid, _colSize, _rowSize);
 	}
-	
 	this->isDamaged = enemy.CheckForPlayer(player.X, player.Y);
 
 	if (isDamaged)
@@ -104,7 +102,7 @@ void Grid::moveDown()
 		ReceiveAttack();
 	}
 }
-
+;
 void Grid::moveLeft()
 {
 	if ((player.Y > 1) &&
@@ -131,7 +129,7 @@ void Grid::moveLeft()
 
 void Grid::moveRight()
 {
-	if ((playerY < _colSize - 1) &&
+	if ((player.Y < _colSize - 1) &&
 		(grid[player.X][player.Y + 1] != wallSymbol))
 	{
 		int enemyX = enemy.getX();
@@ -146,20 +144,18 @@ void Grid::moveRight()
 	}
 
 	this->isDamaged = enemy.CheckForPlayer(player.X, player.Y);
-
 	if (isDamaged)
 	{
 		ReceiveAttack();
 	}
 }
-
+;
 bool Grid::checkForTreasure()
 {
 	ItemCollected();
-
 	return false;
 }
-
+;
 bool Grid::checkForExit()
 {
 	if (grid[player.X][player.Y] == exitSymbol)
@@ -198,7 +194,7 @@ void Grid::ItemCollected()
 	case ItemType::weapon:
 		newItem = new WeaponItem(damage_dist(mt), range_dist(mt));
 		std::cout << *(WeaponItem*)newItem << '\n';
-		break;
+		;		break;
 	}
 
 	inventory.push_back(newItem);
